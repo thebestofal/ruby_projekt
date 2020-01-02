@@ -13,10 +13,6 @@ class Inputs
     return {f: folder, j: inputs.check(junk, 'junk'), m: inputs.check(master, 'master')}
   end#parameters added would be void... hope is pass by ref.(master, junk)
 
-
-
-
-
   def recollect_account_credentials(account, type, new_credentials = nil)
     puts "Account credentials for #{account[:user]} (#{type} account) invalid."
     if(new_credentials.nil?)
