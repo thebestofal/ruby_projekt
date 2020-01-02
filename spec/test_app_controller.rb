@@ -1,11 +1,19 @@
 require_relative("../app/src/app_controller")
 RSpec.describe AppController do
     describe ".surface_folder_level" do
-        it("changes directory and removes .submodulized file") do
-            
+        it("creates readme and a repository") do
+            app_controller = AppController.new()
+            environment = object_double(GithubModifier.new) # mock
+            account = { :user => "user"}
+            expect(environment).to receive(:create_Repo_From_subFolder).with(".", account)
+            app_controller.surface_folder_level(".", account, true, environment)
         end
-        it("throws error if file doesn't exist") do
-            
+        it("deletes existing repository") do
+            app_controller = AppController.new()
+            environment = object_double(GithubModifier.new) # mock
+            account = { :user => "user"}
+            expect(environment).to receive(:delete_online_repo).with(".", account)
+            app_controller.surface_folder_level(".", account, false, environment)
         end
     end
 
