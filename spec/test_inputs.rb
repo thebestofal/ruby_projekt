@@ -5,7 +5,7 @@ require_relative("../app/src/inputs")
 
 RSpec.describe Inputs do
 	before do
-		#allow($stdout).to receive(:write)
+		allow($stdout).to receive(:write)
 	end
 	
     describe ".recollect_account_credentials" do
