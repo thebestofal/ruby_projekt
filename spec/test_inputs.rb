@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'octokit'
 require 'json'
 require 'io/console'
 require_relative("../app/src/inputs")
