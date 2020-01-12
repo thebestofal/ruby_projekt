@@ -5,9 +5,9 @@ require 'fileutils'
 
 
 RSpec.describe Folder_Setup do
-    # before do
-	# 	allow($stdout).to receive(:write)
-	# end
+    before do
+		allow($stdout).to receive(:write)
+	end
     describe ".confirm_folder_exists" do
         it("check if folder exists") do
             folder_setup = Folder_Setup.new()
@@ -16,10 +16,11 @@ RSpec.describe Folder_Setup do
             allow_any_instance_of(Inputs).to receive(:check).and_return(true)
             object = Inputs.inputsToUser()
             
-            allow(folder_setup).to receive(:check_local_directory_exists).and_return(true)
+            allow(folder_setup).to receive(:check_local_directory_exists).and_return(false)
+            allow(folder_setup).to receive(:check_remote_exists).and_return(true)
             folder_setup.confirm_folder_exists('dir', object)
-
         end
+        
     end
 
     describe ".notify" do
@@ -38,14 +39,19 @@ RSpec.describe Folder_Setup do
 
     describe ".clone_master" do
         it("remove folders and clone master")do
-            folder_setup = Folder_Setup.new()
-            allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
-            $stdin.gets
-            allow_any_instance_of(Inputs).to receive(:check).and_return(true)
-            object = Inputs.inputsToUser()
-           
-            expect(folder_setup).to receive(:clone_master).with('dir', object)
-            folder_setup.clone_master('dir', object)
+            # folder_setup = Folder_Setup.new()
+            # allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
+            # $stdin.gets
+            # credentials = {
+			# 	user: 'login1',
+			# 	pass: 'pass1'
+			# }
+            # allow_any_instance_of(Inputs).to receive(:check).and_return(credentials)
+            # object = Inputs.inputsToUser()
+            
+            # #zakomentować
+            # #expect(folder_setup).to receive(:clone_master).with('dir', object)
+            # folder_setup.clone_master('dir', object)
         end
     end
 

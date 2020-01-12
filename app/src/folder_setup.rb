@@ -1,4 +1,5 @@
 require_relative 'inputs.rb'
+require 'fileutils'
 class Folder_Setup
 	
 #discuss another day... this is currently not returning object rather true false.	
@@ -15,6 +16,8 @@ class Folder_Setup
 
 	def clone_master(environmentFolder, object)
 		Dir.chdir("../#{environmentFolder}") do
+			#File.chmod(0777,object[:f])
+			#FileUtils.rm object[:f]
 			`rm -rf #{object[:f]}`
 			`git clone https://github.com/#{object[:m][:user]}/#{object[:f]}`
 		end #submodulized file works if user cloned wrong and put in my repository.
