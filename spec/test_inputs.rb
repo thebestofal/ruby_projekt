@@ -21,7 +21,7 @@ RSpec.describe Inputs do
 			$stdin.gets
 		end
 	    it("test recollecting login and password from input with new credentials") do
-			allow($stdin).to receive(:gets).and_return('login2','pass2')
+			#allow($stdin).to receive(:gets).and_return('login2','pass2')
 			inputs = Inputs.new()
 			#inputs = object_double(Inputs.new)
 			credentials = {
@@ -33,7 +33,7 @@ RSpec.describe Inputs do
 				pass: 'pass2'
 			}
 			expect(inputs.recollect_account_credentials(credentials, 'test_type',new_credentials)).to eq({:pass=>"pass2", :user=>"login2"})
-			$stdin.gets
+			#$stdin.gets
 		end
     end
 
