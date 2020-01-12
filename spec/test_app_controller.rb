@@ -1,5 +1,9 @@
 require_relative("../app/src/app_controller")
 RSpec.describe AppController do
+    before do
+        allow($stdout).to receive(:write)
+    end
+    
     describe ".surface_folder_level" do
         it("creates readme and a repository") do
             app_controller = AppController.new()
@@ -73,19 +77,19 @@ RSpec.describe AppController do
 
     describe ".automate" do
         it("removes folder from GitHub") do
-            allow_any_instance_of(Folder_Setup).to receive(:confirm_folder_exists).and_return({:f => "user"})
-            allow_any_instance_of(AppController).to receive(:confirm_expected_subfolders_exist).and_return(false)
+            allow_any_instance_of(Folder_Setup).to receive(:confirm_folder_exists).and_return(Hash[:f => Hash[:user => "user"]])
             allow_any_instance_of(AppController).to receive(:initialize_submodule)
 
             AppController.automate("", {:m => "user"}, false, "master")
         end
 
         it("initializes whole repository") do
-            allow_any_instance_of(Folder_Setup).to receive(:confirm_folder_exists).and_return({:f => "user"})
+            allow_any_instance_of(Folder_Setup).to receive(:confirm_folder_exists).and_return(Hash[:m => Hash[:user => "user"]])
             allow_any_instance_of(AppController).to receive(:confirm_expected_subfolders_exist).and_return(false)
             allow_any_instance_of(AppController).to receive(:initialize_submodule)
+            allow_any_instance_of(Backups).to receive(:Backup)
 
-            AppController.automate("", {:m => "user"}, true, "master")
+            AppController.automate("", Hash[:f => Hash[:user => "user"]], true, "master")
         end
     end
 end
