@@ -5,7 +5,7 @@ require_relative("../app/src/github_modifier")
 
 RSpec.describe GithubModifier do
 	before do
-		#allow($stdout).to receive(:write)
+		allow($stdout).to receive(:write)
 	end
 	
     describe ".start_repo_locally" do
