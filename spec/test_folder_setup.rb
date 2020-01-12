@@ -23,13 +23,21 @@ RSpec.describe Folder_Setup do
 
     describe ".notify" do
         it("when can't find directory")do
-        folder_setup = Folder_Setup.new()
-        allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
-        $stdin.gets
-        allow_any_instance_of(Inputs).to receive(:check).and_return(true)
-        object = Inputs.inputsToUser()
-        expect(folder_setup).to receive(:notify).with('dir', object)
-        folder_setup.notify('dir', object)
+        # folder_setup = Folder_Setup.new()
+        # allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
+        # $stdin.gets
+        # allow_any_instance_of(Inputs).to receive(:check).and_return(true)
+        # object = Inputs.inputsToUser()
+        # expect(folder_setup).to receive(:notify).with('dir', object)
+        # folder_setup.notify('dir', object)
+            folder_setup = Folder_Setup.new()
+            allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
+            $stdin.gets
+            allow_any_instance_of(Inputs).to receive(:check).and_return(true)
+            object = Inputs.inputsToUser()
+            allow(Inputs).to receive(:folderName).and_return(true)
+            allow(folder_setup).to receive(:confirm_folder_exists).and_return(true)
+            folder_setup.notify('dir', object)
         end
     end
 
