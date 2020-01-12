@@ -20,8 +20,8 @@ class GithubModifier
     `git init`;`git add *`;`git commit -m "Initial Commit"`;
   end
   def establish_Origin_repo(folder, account)
-      `git remote rm origin`
-      `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git`
+      `git remote rm origin --quiet`
+      `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git --quiet`
   end #do not puts anything that shows credentials  
   def commit_andPush(x)
     `git rm --cached --quiet -rf #{x}`
@@ -29,7 +29,7 @@ class GithubModifier
   end
   def removeFiles_addSubmodule(x, junk)
     `git rm --cached --quiet -rf #{x}`
-    `git submodule add https://github.com/#{junk[:user]}/#{x} --silent`
+    `git submodule add https://github.com/#{junk[:user]}/#{x} --quiet`
   end
 
   #github interaction
