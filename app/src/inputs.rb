@@ -29,7 +29,7 @@ class Inputs
     return {user: username.gsub("\n", ""), pass: password.gsub("\n", "")}
   end
   def check(credentials, type, new_credentials = nil)
-    response = `curl -i https://api.github.com -u #{credentials[:user]}:#{credentials[:pass]}`
+    response = `curl -i --silent https://api.github.com -u #{credentials[:user]}:#{credentials[:pass]}`
     response = JSON.parse(response[response.index('{')..-1])
     response["message"] ? check(recollect_account_credentials(credentials, type, new_credentials), type) : credentials
   end
