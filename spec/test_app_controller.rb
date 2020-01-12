@@ -31,7 +31,7 @@ RSpec.describe AppController do
             app_controller = AppController.new()
             environment = object_double(GithubModifier.new) # mock
             account = { :user => "user"}
-            expect_any_instance_of(AppController).to receive(:initialize_submodule).twice()
+            expect_any_instance_of(AppController).to receive(:initialize_submodule).at_least(1).times()
             app_controller.sub_folder_level(".", account, false, environment)
         end
     end
