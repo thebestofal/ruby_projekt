@@ -7,6 +7,7 @@ RSpec.describe GithubModifier do
 	before do
 		allow($stdout).to receive(:write)
 		allow($stderr).to receive(:write)
+		`git command >/dev/null 2>&1`
 	end
 	
     describe ".start_repo_locally" do
