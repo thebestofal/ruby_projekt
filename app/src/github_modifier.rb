@@ -6,7 +6,7 @@ class GithubModifier
       create_online_repo(folder, account)
       if check_online_repo(folder.split('/')[-1], account)
         establish_Origin_repo(folder, account)
-        `git push origin master --quiet`
+        `git push origin master >/dev/null 2>&1`
       else
         puts "Failed to create remote repo for #{folder}."
       end
@@ -24,12 +24,12 @@ class GithubModifier
       `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git`
   end #do not puts anything that shows credentials  
   def commit_andPush(x)
-    `git rm --cached --quiet -rf #{x}`
-    `git add *`;`git commit -m "Add submodule folder #{x}"`;`git push origin master --quiet`
+    `git rm --cached >/dev/null 2>&1 -rf #{x}`
+    `git add *`;`git commit -m "Add submodule folder #{x}"`;`git push origin master >/dev/null 2>&1`
   end
   def removeFiles_addSubmodule(x, junk)
     `git rm --cached --quiet -rf #{x}`
-    `git submodule add https://github.com/#{junk[:user]}/#{x} --quiet`
+    `git submodule add https://github.com/#{junk[:user]}/#{x} >/dev/null 2>&1`
   end
 
   #github interaction
