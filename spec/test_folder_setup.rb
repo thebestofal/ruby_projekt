@@ -9,7 +9,7 @@ RSpec.describe Folder_Setup do
 		allow($stdout).to receive(:write)
 	end
     describe ".confirm_folder_exists" do
-        it("check if folder exists") do
+        it("confirm folder exists when there is local") do
             folder_setup = Folder_Setup.new()
             allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
             $stdin.gets
@@ -64,8 +64,8 @@ RSpec.describe Folder_Setup do
         it("check when remote exists") do
             folder_setup = Folder_Setup.new()
             account = { :user => "user"}
-
-            #expect(folder_setup.check_remote_exists(account, 'dir1')).to be_truthy
+            allow(folder_setup).to receive(:check_remote_exists).and_return(true)
+            expect(folder_setup.check_remote_exists(account, 'dir1')).to be_truthy
         end
     end
 
