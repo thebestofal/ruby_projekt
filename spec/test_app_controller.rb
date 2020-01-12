@@ -18,11 +18,21 @@ RSpec.describe AppController do
     end
 
     describe ".sub_folder_level" do
-        it("returns true if file .submodulized exists") do
-            
+        it("initializes submodule from subfolder, commits and pushes") do
+            app_controller = AppController.new()
+            environment = object_double(GithubModifier.new) # mock
+            account = { :user => "user"}
+            expect(environment).to receive(:removeFiles_addSubmodule).twice()
+            expect(environment).to receive(:commit_andPush).twice()
+            allow_any_instance_of(AppController).to receive(:initialize_submodule)
+            app_controller.sub_folder_level(".", account, true, environment)
         end
-        it("returns false if file .submodulized doesn't exists") do
-            
+        it("just initializes submodule from subfolder") do
+            app_controller = AppController.new()
+            environment = object_double(GithubModifier.new) # mock
+            account = { :user => "user"}
+            expect_any_instance_of(AppController).to receive(:initialize_submodule).twice()
+            app_controller.sub_folder_level(".", account, false, environment)
         end
     end
 
