@@ -16,7 +16,7 @@ RSpec.describe GithubModifier do
     end
 
     describe ".establish_Origin_repo" do
-        it("remote rm/add") do
+        it("remote rm/add origin") do
 		git = GithubModifier.new()
 		credentials = {
 			user: 'login1',
@@ -27,13 +27,13 @@ RSpec.describe GithubModifier do
     end
 		
 	describe ".commit_andPush" do
-        it("commits/push") do
+        it("commits and pushes changes") do
 			git = GithubModifier.new()
 			git.commit_andPush("x")
 		end
     end
 	describe ".removeFiles_addSubmodule" do
-        it("add module") do
+        it("removes files and adds submodule") do
 			allow($stdin).to receive(:gets).and_return('login2','pass2')
 			credentials = {
 				user: 'login1',
@@ -47,7 +47,7 @@ RSpec.describe GithubModifier do
 	
 
 	describe ".delete_online_repo" do
-        it("delete repo") do
+        it("deletes online repository") do
 			credentials = {
 				user: 'login1',
 				pass: 'pass1'
@@ -57,7 +57,7 @@ RSpec.describe GithubModifier do
 		end
     end
 	describe ".create_online_repo" do
-        it("add module") do
+        it("creates online repository") do
 			credentials = {
 				user: 'login1',
 				pass: 'pass1'
@@ -67,7 +67,7 @@ RSpec.describe GithubModifier do
 		end
     end
 	describe ".check_online_repo" do
-        it("add module") do
+        it("checks online repository") do
 			credentials = {
 				user: 'login1',
 				pass: 'pass1'
@@ -78,7 +78,7 @@ RSpec.describe GithubModifier do
     end
 	
 	describe ".create_Repo_From_subFolder" do
-		it("create fail") do
+		it("creating repository failed") do
 			git = GithubModifier.new()
 			credentials = {
 				user: 'login1',
@@ -89,7 +89,7 @@ RSpec.describe GithubModifier do
 			allow(git).to receive(:establish_Origin_repo).and_return(true)
 			git.create_Repo_From_subFolder("folder", credentials)
 		end
-		it("create succeded") do
+		it("creating repository succeded") do
 			git = GithubModifier.new()
 			credentials = {
 				user: 'login1',
