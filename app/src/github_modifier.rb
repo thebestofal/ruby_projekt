@@ -6,7 +6,7 @@ class GithubModifier
       create_online_repo(folder, account)
       if check_online_repo(folder.split('/')[-1], account)
         establish_Origin_repo(folder, account)
-        `git push origin master --quiet`
+        `git push origin master >/dev/null 2>&1`
       else
         puts "Failed to create remote repo for #{folder}."
       end
@@ -24,24 +24,24 @@ class GithubModifier
       `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git`
   end #do not puts anything that shows credentials  
   def commit_andPush(x)
-    `git rm --cached -rf #{x}`
-    `git add *`;`git commit -m "Add submodule folder #{x}"`;`git push origin master --quiet`
+    `git rm --cached >/dev/null 2>&1 -rf #{x}`
+    `git add *`;`git commit -m "Add submodule folder #{x}"`;`git push origin master >/dev/null 2>&1`
   end
   def removeFiles_addSubmodule(x, junk)
-    `git rm --cached -rf #{x}`
-    `git submodule add https://github.com/#{junk[:user]}/#{x}`
+    `git rm --cached >/dev/null 2>&1 -rf #{x}`
+    `git submodule add https://github.com/#{junk[:user]}/#{x} >/dev/null 2>&1`
   end
 
   #github interaction
   def delete_online_repo(folder, account) # When we have the program running, we will update this.
     username = account[:user];password = account[:pass];
-    `curl -u #{username}:#{password} -X DELETE  https://api.github.com/repos/{#{username}}/{#{folder.split('/')[-1]}}`;#puts folder.split('/')[-1];
+    `curl --silent -u #{username}:#{password} -X DELETE  https://api.github.com/repos/{#{username}}/{#{folder.split('/')[-1]}}`;#puts folder.split('/')[-1];
   end
   def create_online_repo(folder, account)
-    `curl -u "#{account[:user]}:#{account[:pass]}" https://api.github.com/user/repos -d '{ "name": "#{folder.split('/')[-1]}" }' /dev/null`
+    `curl --silent -u"#{account[:user]}:#{account[:pass]}" https://api.github.com/user/repos -d '{ "name": "#{folder.split('/')[-1]}" }' /dev/null`
   end
   def check_online_repo(folder, account)
-    response = `curl -i https://api.github.com/repos/#{account[:user]}/#{folder}`
+    response = `curl -i --silent https://api.github.com/repos/#{account[:user]}/#{folder}`
     response = JSON.parse(response[response.index('{')..-1])
     response["message"].nil?
   end 
