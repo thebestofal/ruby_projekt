@@ -28,7 +28,7 @@ class GithubModifier
     `git add *`;`git commit -m "Add submodule folder #{x}"`;`git push origin master >/dev/null 2>&1`
   end
   def removeFiles_addSubmodule(x, junk)
-    `git rm --cached --quiet -rf #{x}`
+    `git rm --cached >/dev/null 2>&1 -rf #{x}`
     `git submodule add https://github.com/#{junk[:user]}/#{x} >/dev/null 2>&1`
   end
 
