@@ -24,11 +24,11 @@ class GithubModifier
       `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git`
   end #do not puts anything that shows credentials  
   def commit_andPush(x)
-    `git rm --cached --silent -rf #{x}`
+    `git rm --cached --quiet -rf #{x}`
     `git add *`;`git commit -m "Add submodule folder #{x}"`;`git push origin master --quiet`
   end
   def removeFiles_addSubmodule(x, junk)
-    `git rm --cached --silent -rf #{x}`
+    `git rm --cached --quiet -rf #{x}`
     `git submodule add https://github.com/#{junk[:user]}/#{x} --silent`
   end
 
