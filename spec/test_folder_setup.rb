@@ -16,11 +16,10 @@ RSpec.describe Folder_Setup do
             allow_any_instance_of(Inputs).to receive(:check).and_return(true)
             object = Inputs.inputsToUser()
             
-            allow(folder_setup).to receive(:check_local_directory_exists).and_return(false)
-            allow(folder_setup).to receive(:check_remote_exists).and_return(true)
+            allow(folder_setup).to receive(:check_local_directory_exists).and_return(true)
+            #allow(folder_setup).to receive(:check_remote_exists).and_return(true)
             folder_setup.confirm_folder_exists('dir', object)
         end
-        
     end
 
     describe ".notify" do
