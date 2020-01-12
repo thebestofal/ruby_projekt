@@ -11,33 +11,41 @@ RSpec.describe Folder_Setup do
     describe ".confirm_folder_exists" do
         it("check if folder exists") do
             folder_setup = Folder_Setup.new()
-        allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
-        $stdin.gets
-        allow_any_instance_of(Inputs).to receive(:check).and_return(true)
-        object = Inputs.inputsToUser()
-        expect(folder_setup).to receive(:confirm_folder_exists).with('dir', object)
-        folder_setup.confirm_folder_exists('dir', object)
+            allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
+            $stdin.gets
+            allow_any_instance_of(Inputs).to receive(:check).and_return(true)
+            object = Inputs.inputsToUser()
+            
+            allow(folder_setup).to receive(:check_local_directory_exists).and_return(true)
+            folder_setup.confirm_folder_exists('dir', object)
 
         end
     end
 
     describe ".notify" do
         it("when can't find directory")do
-        # folder_setup = Folder_Setup.new()
-        # allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
-        # $stdin.gets
-        # allow_any_instance_of(Inputs).to receive(:check).and_return(true)
-        # object = Inputs.inputsToUser()
-        # expect(folder_setup).to receive(:notify).with('dir', object)
-        # folder_setup.notify('dir', object)
             folder_setup = Folder_Setup.new()
             allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
             $stdin.gets
             allow_any_instance_of(Inputs).to receive(:check).and_return(true)
             object = Inputs.inputsToUser()
+            
             allow(Inputs).to receive(:folderName).and_return(true)
             allow(folder_setup).to receive(:confirm_folder_exists).and_return(true)
             folder_setup.notify('dir', object)
+        end
+    end
+
+    describe ".clone_master" do
+        it("remove folders and clone master")do
+            folder_setup = Folder_Setup.new()
+            allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
+            $stdin.gets
+            allow_any_instance_of(Inputs).to receive(:check).and_return(true)
+            object = Inputs.inputsToUser()
+           
+            expect(folder_setup).to receive(:clone_master).with('dir', object)
+            folder_setup.clone_master('dir', object)
         end
     end
 
@@ -76,18 +84,6 @@ RSpec.describe Folder_Setup do
             str.concat(object[:f])
             FileUtils.mkdir_p str
             expect(folder_setup.check_local_directory_exists('dir1', object)).to be_truthy
-        end
-    end
-
-    describe ".clone_master" do
-        it("remove folders and clone master")do
-            folder_setup = Folder_Setup.new()
-            allow($stdin).to receive(:gets).and_return("folder","test","test","test","test")
-            $stdin.gets
-            allow_any_instance_of(Inputs).to receive(:check).and_return(true)
-            object = Inputs.inputsToUser()
-            expect(folder_setup).to receive(:clone_master).with('dir', object)
-            folder_setup.clone_master('dir', object)
         end
     end
 end
