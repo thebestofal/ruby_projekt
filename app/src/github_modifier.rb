@@ -20,8 +20,8 @@ class GithubModifier
     `git init`;`git add *`;`git commit -m "Initial Commit"`;
   end
   def establish_Origin_repo(folder, account)
-      `git remote rm origin --quiet`
-      `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git --quiet`
+      `git remote rm origin`
+      `git remote add origin https://#{account[:user]}:#{account[:pass]}@github.com/#{account[:user]}/#{folder.split('/')[-1]}.git`
   end #do not puts anything that shows credentials  
   def commit_andPush(x)
     `git rm --cached --quiet -rf #{x}`
